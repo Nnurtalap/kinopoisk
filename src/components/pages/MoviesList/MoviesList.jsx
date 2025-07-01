@@ -3,7 +3,7 @@ import { useGetFilmsTopQuery } from '../../../services/kinopoiskApi';
 import MoviesListUi from '../../ui/MoviesListUi/MoviesListUi';
 import MovieListSkeleton from './MovieListSkeleton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Button, Pagination, Stack, Typography } from '@mui/material';
+import { Button, Stack, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -33,6 +33,7 @@ export default function MoviesList() {
           {moviesType.title}
         </Typography>
       </Stack>
+
       <MoviesListUi
         movies={data.items}
         totalPages={data.totalPages}

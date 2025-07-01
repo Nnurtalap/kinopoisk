@@ -12,7 +12,16 @@ const initialState = {
 export const curerntQuerySlice = createSlice({
   name: 'curerntQuerySlice',
   initialState,
-  reducers: {},
+  reducers: {
+    selectQuery: (state, action) => ({
+      ...state,
+      ...action.payload,
+    }),
+    resetQuery: () => ({
+      ...initialState,
+    }),
+  },
 });
 
+export const { resetQuery, selectQuery } = curerntQuerySlice.actions;
 export default curerntQuerySlice.reducer;

@@ -11,12 +11,27 @@ import {
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
-export default function MovieCard({ movie }) {
+export default function MovieCard({ movie, reload = false }) {
+  const linkProps = reload
+    ? { component: 'a', href: `/movie/${movie.kinopoiskId}` }
+    : { component: RouterLink, to: `/movie/${movie.kinopoiskId}` };
+
   return (
     <Stack>
-      <RouterLink to={`/movie/${movie.konopoiskId}`}>
-        <img className={styles.img} src={movie.posterUrlPreview} />
-      </RouterLink>
+      <Link {...linkProps}>
+        <img
+          className={styles.img}
+          src={movie.posterUrlPreview}
+          alt={movie.nameRu}
+        />
+      </Link>
+      <Link
+        {...linkProps}
+        underline="hover"
+        sx={{ textAlign: 'center', fontWeight: 500, width: '200px' }}
+      >
+        {movie.nameRu ? movie.nameRu : movie.nameEng}
+      </Link>
       {movie.ratingKinopoisk ? (
         <Stack>
           <Tooltip title={`${movie.ratingKinopoisk} / 10 `}>
@@ -31,13 +46,10 @@ export default function MovieCard({ movie }) {
           </Tooltip>
         </Stack>
       ) : (
-        <h5 sx={{ width: '200px' }} textAlign="center">
+        <Typography sx={{ width: '200px' }} textAlign="center">
           рейтинг отсутсвтует
-        </h5>
+        </Typography>
       )}
-      <Link sx={{ width: '200px' }} component={RouterLink} textAlign="center">
-        {movie.nameRu ? movie.nameRu : movie.nameEng}
-      </Link>
     </Stack>
   );
 }

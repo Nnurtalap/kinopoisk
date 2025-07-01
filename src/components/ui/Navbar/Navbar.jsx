@@ -1,4 +1,9 @@
 import { iconComponents, TOP_LISTS, MOVIE_LISTS } from '../../../constans';
+import ToggleColorMode, {
+  colorModeContext,
+} from '../../../context/ToggleColorMode';
+import Search from '../Search/search';
+import { Brightness4, Brightness7 } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
 import {
   AppBar,
@@ -16,9 +21,10 @@ import {
   Typography,
   Link,
   Divider,
+  Stack,
 } from '@mui/material';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -28,6 +34,7 @@ const Icon = ({ iconName }) => {
 };
 
 export default function Navbar() {
+  const { toggleMode, mode } = useContext(colorModeContext);
   const [isOpen, setOpen] = useState(false);
   const handleDrawerToggle = () => {
     setOpen(prevState => !prevState);
@@ -74,14 +81,26 @@ export default function Navbar() {
                 ))}
               </Box>
             </Drawer>
-            <Typography
-              component={RouterLink}
-              sx={{ color: 'white', textDecoration: 'none' }}
-              variant="h5"
-              to="/"
+            <Stack
+              flexDirection="row"
+              justifyContent="space-between"
+              alignItems="center"
+              width="100%"
             >
-              Netflix
-            </Typography>
+              <Typography
+                component={RouterLink}
+                sx={{ color: 'white', textDecoration: 'none' }}
+                variant="h5"
+                to="/"
+              >
+                kinopoisk 0.2
+              </Typography>
+              <Search />
+
+              <IconButton color="inherit" onClick={toggleMode}>
+                {mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
+              </IconButton>
+            </Stack>
           </Toolbar>
         </Container>
       </AppBar>
